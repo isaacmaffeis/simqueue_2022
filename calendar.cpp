@@ -26,8 +26,6 @@ event* calendar::get(){
 
 void calendar::put(event* New){
 	event* temp=head;
-	event* pippo;
-	pippo=New;
 	if(head==NULL){
 		head=New;
 		head->next=New;
