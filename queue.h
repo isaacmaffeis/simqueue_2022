@@ -23,6 +23,7 @@ class queue: public simulator{
 	double	tot_delay;
 	// statistics
 	Sstat*	delay;
+	Sstat* lost;
 public:
 	queue(int argc,char *argv[]);
 	virtual ~queue(void);
