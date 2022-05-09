@@ -1,5 +1,5 @@
 /*******************************************************
-		     EVENT . H
+			 EVENT . H
 *******************************************************/
 
 
@@ -9,54 +9,53 @@
 #include "global.h"
 #include "buffer.h"
 
-
-class event{
+class event {
 public:
-	event*	next;	// next event
+	event* next;	// next event
 	double 	time;	// event time
 	event();
 	event(double Time);
 	event(event* Next, double Time);
-	~event(){}
-	virtual void body(){}
+	~event() {}
+	virtual void body() {}
 };
 
-inline event::event(){
-	next=NULL;
-	time=-1;
-	}
+inline event::event() {
+	next = NULL;
+	time = -1;
+}
 
-inline event::event(event* Next, double Time){
-	next=Next;
-	time=Time;
-	}
+inline event::event(event* Next, double Time) {
+	next = Next;
+	time = Time;
+}
 
-inline event::event(double Time){
-	time=Time;
-	}
+inline event::event(double Time) {
+	time = Time;
+}
 
-class arrival: public event{
+class arrival : public event {
 
 	buffer* buf;
 
-	public:
+public:
 	int source_id;
 	virtual void body();
 	arrival(double Time, buffer* Buf);
-	};
+};
 
-class service: public event{
+class service : public event {
 
 	buffer* buf;
 
-	public:
+public:
 	virtual void body();
-	service(double Time, buffer* Buf): event(Time){buf=Buf;}
-	};
+	service(double Time, buffer* Buf) : event(Time) { buf = Buf; }
+};
 
-inline arrival::arrival(double Time, buffer* Buf): event(Time){
-	buf=Buf;
-	}
+inline arrival::arrival(double Time, buffer* Buf) : event(Time) {
+	buf = Buf;
+}
 
 #endif
 

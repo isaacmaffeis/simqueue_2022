@@ -18,7 +18,8 @@ double 	Trslen;
 double 	Runlen;
 int 	NRUNmin;
 int 	NRUNmax;
-
+int q_a, q_b;
+int trf_model;
 
 queue::queue(int argc, char* argv[]) : simulator(argc, argv)
 {
@@ -42,13 +43,31 @@ void queue::input() {
 	buf->Kqueue = read_int("K = ", INT_MAX, 0, INT_MAX);
 	printf("Arrivals model:\n");
 	printf("1 - Poisson:>\n");
-	traffic_model = read_int("", 1, 1, 1);
-	load = read_double("Traffic load(Erlang)", 0.4, 0.01, 0.999);
+	printf("2 - Continuous Probability Distributions:>\n");
+	traffic_model = read_int("", 1, 1, 2);
+	trf_model = traffic_model;
+	switch (traffic_model)
+	{
+	case 1 :
+		load = read_double("Traffic load(Erlang)", 0.4, 0.01, 0.999);
+		break;
+	case 2:
+		q_a = read_int("min value a:", 1, 1, 100);
+		q_b = read_int("max value b:", 50, 2, 1000);
+		GEN_UNIF(SEED, q_a, q_b, load);
+		printf("%f,", load);
+		inter = 1 / load;
+		printf("%f,", inter);
+		break;
+	default:
+		break;
+	}
 	printf("\n Service model:\n");
 	printf("1 - Exponential:>\n");
 	service_model = read_int("", 1, 1, 1);
 	duration = read_double("Average service duration (s)", 0.4, 0.01, 100);
-	inter = duration / load;
+	if(traffic_model==1)
+		inter = duration / load;
 	printf("SIMULATION PARAMETERS:\n\n");
 	Trslen = read_double("Simulation transient len (s)", 100, 0.01, 10000);
 	Trslen = Trslen;
@@ -112,6 +131,7 @@ void queue::results()
 	fprintf(fpout, "           SIMULATION RESULTS                \n");
 	fprintf(fpout, "*********************************************\n\n");
 	fprintf(fpout, "Input parameters:\n");
+	fprintf(fpout, "Buffer Queue limit:          %d\n", buf->Kqueue);
 	fprintf(fpout, "Transient length (s)         %5.3f\n", Trslen);
 	fprintf(fpout, "Run length (s)               %5.3f\n", Runlen);
 	fprintf(fpout, "Number of runs               %5d\n", NRUNmin);
@@ -135,7 +155,7 @@ void queue::print_trace(int n)
 		delay->mean(),
 		delay->confidence(.95),
 		delay->confpercerr(.95));
-	fprintf(fpout, "Avarage Rejection rate       %f\n", lost->mean());
+	fprintf(fpout, "Avarage Rejection rate       %2.6f   +/- %.2e  p:%3.2f\n", lost->mean(), lost->confidence(.95), lost->confpercerr(.95));
 
 	fflush(fptrc);
 
