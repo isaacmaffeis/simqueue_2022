@@ -63,4 +63,8 @@ extern		double 	read_double(const char *);
 extern		const char * 	read_string(const char *, const char *);
 extern		const char * 	read_string(const char *);
 
+extern		bool 	read_bool(const char*, int, int, int);
+extern		bool	read_bool(const char*, int);
+
+
 #endif    // _EASYIOPLUS_H

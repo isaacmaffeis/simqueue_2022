@@ -37,6 +37,7 @@ inline event::event(double Time) {
 class arrival : public event {
 
 	buffer* buf;
+	double genArr();
 
 public:
 	int source_id;

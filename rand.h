@@ -94,7 +94,7 @@ double  _x;							 \
 	{							\
 	double pseudonum;					\
 	PSEUDO((IS), pseudonum);				\
-	ESITO = (int)((Min) + pseudonum * (fabs((double)((Max) - (Min)))+1));\
+	ESITO = (double)((Min) + pseudonum * (fabs((double)((Max) - (Min)))+1));\
 	}
 
 
