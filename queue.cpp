@@ -54,7 +54,7 @@ void queue::input() {
 	batch = read_bool("", 1, 0, 1);
 	if (batch) {
 		printf("Mean batch size value:>\n");
-		meanC = read_int("C = ", 2, 2, INT_MAX);
+		meanC = read_int("C = ", 2, 1, INT_MAX);
 	}
 	switch (traffic_model)
 	{
@@ -65,9 +65,7 @@ void queue::input() {
 		q_a = read_int("min value a:", 1, 1, 99);
 		q_b = read_int("max value b:", 2, 2, 100);
 		GEN_UNIF(SEED, q_a, q_b, load);
-		printf("%f,", load);
 		inter = 1 / load;
-		printf("%f,", inter);
 		break;
 	default:
 		break;
