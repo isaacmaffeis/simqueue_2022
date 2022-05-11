@@ -140,6 +140,8 @@ void queue::results()
 	fprintf(fpout, "*********************************************\n\n");
 	fprintf(fpout, "Input parameters:\n");
 	fprintf(fpout, "Buffer Queue limit:          %d\n", buf->Kqueue);
+	if(batch)
+		fprintf(fpout, "Mean batch size:             %d\n", meanC);
 	fprintf(fpout, "Transient length (s)         %5.3f\n", Trslen);
 	fprintf(fpout, "Run length (s)               %5.3f\n", Runlen);
 	fprintf(fpout, "Number of runs               %5d\n", NRUNmin);

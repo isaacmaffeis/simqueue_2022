@@ -25,7 +25,7 @@ void 	buffer::insert(packet* pack){
 		count++;
 	}
 	else { // inserimento in coda
-		if (count < Kqueue) { //controllo se il buffer non è pieno
+		if (count <= Kqueue) { //controllo se il buffer non è pieno
 			last->next = pack;
 			last = pack;
 			last->next = head;
