@@ -149,7 +149,7 @@ void queue::results()
 	fprintf(fpout, "Average service duration     %5.3f\n", duration);
 	fprintf(fpout, "Results:\n");
 	fprintf(fpout, "Average Delay                %2.6f   +/- %.2e  p:%3.2f\n", delay->mean(), delay->confidence(.95), delay->confpercerr(.95));
-	fprintf(fpout, "Avarage Rejection rate       %2.6f   +/- %.2e  p:%3.2f\n", lost->mean(), lost->confidence(.95), lost->confpercerr(.95));
+	fprintf(fpout, "Average Rejection rate       %2.6f   +/- %.2e  p:%3.2f\n", lost->mean(), lost->confidence(.95), lost->confpercerr(.95));
 	fprintf(fpout, "D  %2.6f   %2.6f   %.2e %2.6f\n", load, delay->mean(), delay->confidence(.95), duration * (load) / (1 - load));
 
 }
@@ -165,7 +165,7 @@ void queue::print_trace(int n)
 		delay->mean(),
 		delay->confidence(.95),
 		delay->confpercerr(.95));
-	fprintf(fpout, "Avarage Rejection rate       %2.6f   +/- %.2e  p:%3.2f\n", lost->mean(), lost->confidence(.95), lost->confpercerr(.95));
+	fprintf(fpout, "Average Rejection rate       %2.6f   +/- %.2e  p:%3.2f\n", lost->mean(), lost->confidence(.95), lost->confpercerr(.95));
 
 	fflush(fptrc);
 
